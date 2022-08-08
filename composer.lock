@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fb8c2ba6901a67addc2ba81cbf31a6c",
+    "content-hash": "010b8d329b8b70054405409b38f90212",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -1096,7 +1096,7 @@
         },
         {
             "name": "filament/filament",
-            "version": "v2.15.13",
+            "version": "2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/admin.git",
@@ -1128,6 +1128,7 @@
                 "php": "^8.0",
                 "spatie/laravel-package-tools": "^1.9"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -1158,7 +1159,7 @@
         },
         {
             "name": "filament/forms",
-            "version": "v2.15.13",
+            "version": "2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/forms.git",
@@ -1186,6 +1187,7 @@
                 "php": "^8.0",
                 "spatie/laravel-package-tools": "^1.9"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -1216,7 +1218,7 @@
         },
         {
             "name": "filament/notifications",
-            "version": "v2.15.13",
+            "version": "2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/notifications.git",
@@ -1238,6 +1240,7 @@
                 "php": "^8.0",
                 "spatie/laravel-package-tools": "^1.9"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -1265,7 +1268,7 @@
         },
         {
             "name": "filament/support",
-            "version": "v2.15.13",
+            "version": "2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/support.git",
@@ -1285,6 +1288,7 @@
                 "spatie/laravel-package-tools": "^1.9",
                 "tgalopin/html-sanitizer": "^1.5"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -1315,7 +1319,7 @@
         },
         {
             "name": "filament/tables",
-            "version": "v2.15.13",
+            "version": "2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/tables.git",
@@ -1343,6 +1347,7 @@
                 "php": "^8.0",
                 "spatie/laravel-package-tools": "^1.9"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -9218,7 +9223,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "filament/filament": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
