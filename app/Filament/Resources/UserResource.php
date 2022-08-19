@@ -2,16 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use Closure;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use App\Models\User;
 use Filament\Tables;
+use Illuminate\Support\Str;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\UserResource\RelationManagers;
+use Illuminate\Support\HtmlString;
 
 class UserResource extends Resource
 {
@@ -35,6 +38,117 @@ class UserResource extends Resource
                     ->password()
                     ->required()
                     ->maxLength(255),
+
+                     Forms\Components\Fieldset::make('filed_set_without_searchable')
+                            ->label('Filed Set Without Searchable')
+                            ->schema([
+
+                           Forms\Components\Select::make('parent_select_without_searchable')
+                            ->label('Parent Select')
+                            ->validationAttribute('Parent Select')
+                            ->placeholder('Select Parent Select')
+                            ->options(collect(array_combine(range(1,10),range(1,10))))
+                            ->required()
+                            ->searchable()
+                            ->reactive()
+                            ->columnSpan([
+                                'sm' => 6,
+                            ]),
+
+                            Forms\Components\Select::make('child_select_without_searchable')
+                            ->label('Child Select')
+                            ->reactive()
+                            ->validationAttribute('Child Select')
+                            ->options(function(Closure $get){
+                                $tblNumber = $get('parent_select_without_searchable');
+                                return collect(range(1,10))
+                                ->map(function($value) use ($tblNumber){
+                                return [
+                                    'key' => $key = $value * $tblNumber,
+                                    'value' => Str::of($value)
+                                    ->append(' ')
+                                    ->append('*')
+                                    ->append(' ')
+                                    ->append($tblNumber)
+                                    ->append(' ')
+                                    ->append('=')
+                                    ->append(' ')
+                                    ->append($key)
+                                    ->toString(),
+                                ];
+                                })
+                                ->pluck('value','key');
+                            })
+                            ->required()
+                            ->placeholder('Select Child Select')
+                            ->disabled(function(Closure $get){
+                                return ! filled($get('parent_select_without_searchable'));
+                            })
+                            ->helperText(new HtmlString('This will be enabled after selecting <code>parent_select_without_searchable</code>'))
+                            ->columnSpan([
+                                'sm' => 6,
+                            ]),
+                            
+
+
+                            ])
+                            ->columns(12),
+
+                            Forms\Components\Fieldset::make('filed_set_wit_searchable')
+                            ->label('Filed Set With Searchable')
+                            ->schema([
+
+                           Forms\Components\Select::make('parent_select_with_searchable')
+                            ->label('Parent Select')
+                            ->validationAttribute('Parent Select')
+                            ->placeholder('Select Parent Select')
+                            ->options(collect(array_combine(range(1,10),range(1,10))))
+                            ->required()
+                            ->searchable()
+                            ->reactive()
+                            ->columnSpan([
+                                'sm' => 6,
+                            ]),
+
+                            Forms\Components\Select::make('child_select_with_searchable')
+                            ->label('Child Select')
+                            ->reactive()
+                            ->validationAttribute('Child Select')
+                            ->options(function(Closure $get){
+                                $tblNumber = $get('parent_select_with_searchable');
+                                return collect(range(1,10))
+                                ->map(function($value) use ($tblNumber){
+                                return [
+                                    'key' => $key = $value * $tblNumber,
+                                    'value' => Str::of($value)
+                                    ->append(' ')
+                                    ->append('*')
+                                    ->append(' ')
+                                    ->append($tblNumber)
+                                    ->append(' ')
+                                    ->append('=')
+                                    ->append(' ')
+                                    ->append($key)
+                                    ->toString(),
+                                ];
+                                })
+                                ->pluck('value','key');
+                            })
+                            ->helperText(new HtmlString('This will not be enabled even after selecting <code>parent_select_with_searchable</code>'))
+                            ->required()
+                            ->searchable()
+                            ->placeholder('Select Child Select')
+                            ->disabled(function(Closure $get){
+                                return ! filled($get('parent_select_with_searchable'));
+                            })
+                            ->columnSpan([
+                                'sm' => 6,
+                            ]),
+                            
+
+
+                            ])
+                            ->columns(12),
 
                 Forms\Components\Repeater::make('preferred_colors')
                 ->label('Preferred Colors')
